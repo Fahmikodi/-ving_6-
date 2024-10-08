@@ -1,2 +1,2 @@
-# -ving_6-
+# øving_6
 gruppearbeid 
