@@ -12,10 +12,9 @@ barometer = []
 trykk = []
 temperatur = []
 lufttemperatur = []
+Lufttrykk_i_havnivå = []
 
-# File paths
-file1 = '/Users/fahmi/.spyder-py3/Fk/trykk_og_temperaturlogg_rune_time.csv.txt'
-file2 = '/Users/fahmi/.spyder-py3/Fk/temperatur_trykk_met_samme_rune_time_datasett.csv.txt'
+
 
 # Function to parse dates with multiple formats
 def parse_date(date_str):
@@ -37,7 +36,9 @@ def read_csv_file(file_path):
     return data
 
 # Read and process first CSV file
+file1 = '/Users/fahmi/.spyder-py3/Fk/trykk_og_temperaturlogg_rune_time.csv.txt'
 data1 = read_csv_file(file1)
+
 for row in data1:
     try:
         date_obj = parse_date(row["Dato og tid"])
@@ -54,7 +55,10 @@ for row in data1:
     except ValueError as e:
         print(f"Error converting row: {row}, error: {e}")
 
+luft_temperatur = []
+
 # Read and process second CSV file
+file2 = '/Users/fahmi/.spyder-py3/Fk/temperatur_trykk_met_samme_rune_time_datasett.csv.txt'
 data2 = read_csv_file(file2)
 print(data2[0].keys())  # Print column names for verification
 for row in data2:
@@ -62,7 +66,7 @@ for row in data2:
         lufttemperatur.append(float(row["Lufttemperatur"].replace(',', '.')))
     except ValueError as e:
         print(f"Error converting row: {row}, error: {e}")
-
+# finne gjennomsnitt 
 def calculate_averages(times, temperatures, n):
     valid_times = []
     averages = []
@@ -75,7 +79,7 @@ def calculate_averages(times, temperatures, n):
     
     return valid_times, averages
 
-# Use your actual data
+
 times = dato
 temperatures = temperatur
 
@@ -84,7 +88,7 @@ n = 30
 valid_times, averages = calculate_averages(times, temperatures, n)
 
 # Plotting
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(10,4))
 plt.plot(times, temperatures, label='Temperatur', color='blue')
 plt.plot(valid_times, averages, label='Gjennomsnittsverdi (n=30)', color='orange')
 plt.plot(times[:len(lufttemperatur)], lufttemperatur, label='Lufttemperatur', color='green')
@@ -92,3 +96,12 @@ plt.xlabel('Tid')
 plt.ylabel('Temperatur')
 plt.legend()
 plt.show()
+
+#plotting2
+
+plt.figure(figsize=(10,4))
+plt.plot(times, trykk) 
+plt.plot()
+plt.plot()
+plt.show()
+
